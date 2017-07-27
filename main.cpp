@@ -1,4 +1,6 @@
 #include <iostream>
+#include <iomanip>
+#include <fstream>
 #include <cmath>
 using namespace std;
 
@@ -16,11 +18,26 @@ const float interval = interval_end - interval_start;
 
 int main()
 {
-	cout << "Midpoint:  " << midpointRule(2) << endl;
-	cout << "Trapezoid: " << trapezoidRule(2) << endl;
-	cout << "Simpson's: " << simpsonsRule(2) << endl;
+	ofstream fout;
+	fout.open("Output.txt");
 
-	while (true);
+	fout << left
+		<< setw(4) << "n"
+		<< setw(15) << "Midpoint Rule"
+		<< setw(15) << "Trapezoid Rule"
+		<< setw(15) << "Simpson's Rule"
+		<< endl;
+
+	for (int n = 2; n <= 20; n += 2)
+	{
+		fout << left
+			<< setw(4) << n
+			<< setw(15) << midpointRule(n)
+			<< setw(15) << trapezoidRule(n)
+			<< setw(15) << simpsonsRule(n) << endl;
+	}
+
+	fout.close();
 }
 
 float midpointRule(int n)
